@@ -1,4 +1,5 @@
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -171,24 +172,31 @@ class _TodoAppState extends State {
                                             endActionPane: ActionPane(
                                                 motion: const ScrollMotion(),
                                                 children:  [
-                                                    SlidableAction(
-                                                    onPressed: (context) {
-                                                          editTask(todoList[index]);
-                                                    },
-                                                    foregroundColor:
-                                                        const Color.fromRGBO(111, 81, 255, 1),
-                                                    icon: Icons.edit,
-                                                    label: 'Edit',
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: [
+                                                         SlidableAction(
+                                                      onPressed: (context) {
+                                                            editTask(todoList[index]);
+                                                      },
+                                                      foregroundColor:
+                                                          const Color.fromRGBO(111, 81, 255, 1),
+                                                      icon: Icons.edit,
+                                                      // label: 'Edit',
+                                                      ),
+                                                      SlidableAction(
+                                                      onPressed: (context) {
+                                                          removeTasks(snapshot.data![index]);
+                                                      },
+                                                      foregroundColor:
+                                                          const Color.fromRGBO(111, 81, 255, 1),
+                                                      icon: Icons.delete,
+                                                      // label: 'Delete',
+                                                      )
+                                                      ],
                                                     ),
-                                                    SlidableAction(
-                                                    onPressed: (context) {
-                                                        removeTasks(snapshot.data![index]);
-                                                    },
-                                                    foregroundColor:
-                                                        const Color.fromRGBO(111, 81, 255, 1),
-                                                    icon: Icons.delete,
-                                                    label: 'Delete',
-                                                    )
+                                                  )
+                                                   
                                                 ]),
                                             child: Container(
                                                 padding: const EdgeInsets.all(9),
@@ -423,6 +431,7 @@ class _TodoAppState extends State {
                     ),
                     TextFormField(
                       controller: dateController,
+                      readOnly: true,
                       decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
